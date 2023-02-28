@@ -13,10 +13,18 @@ module HelloRailsBackEnd
 
     # Configuration for the application, engines, and railties goes here.
     #
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'http://localhost:3001' or 'http://localhost:3000'# or '*' to allow any origin
+        resource '/api/v1/*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options]
+      end
+    end
+
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.api_only = true
   end
 end
